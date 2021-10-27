@@ -1,0 +1,145 @@
+//const { Router } = require('express');
+const express = require("express");
+// Importar todos los routers;
+// Ejemplo: const authRouter = require('./auth.js');
+const axios = require("axios");
+const { Type, Pokemon } = require("../db");
+//const Pokemon = require('../models/Pokemon');
+//const Type = require('../models/Type');
+
+const router = express();
+router.use(express.json());
+
+const API = "https://pokeapi.co/api/v2/pokemon";
+
+//console.log(API)
+// Configurar los routers
+// Ejemplo: router.use('/auth', authRouter);
+//LLAMADOS API y DB
+const getApiInfo = async () => {
+  const { data } = await axios.get(API); // Esta info representa el resultado del endpoint principal
+  // pokemonPromises es un array promesas que generamos mapeando el array data.results y dentro del map hacemos un request a otro endpoint para traer los detalles del pokemon.
+  const pokemonPromises = await data.results.map(async (pokemon) => {
+    const { data } = await axios.get(pokemon.url);
+    return data;
+  });
+  const allPokemons = await Promise.all(pokemonPromises);
+  const parsedPokemons = allPokemons.map((pk) => ({
+    id: pk.id,
+    name: pk.name,
+    height: pk.height,
+    weight: pk.weight,
+    image: pk.sprites.other["official-artwork"].front_default,
+    attack: pk.stats[1].base_stat,
+    defense: pk.stats[2].base_stat,
+    speed: pk.stats[5].base_stat,
+  }));
+
+  return parsedPokemons;
+};
+
+const getDbInfo = async () => {
+  //me traigo info de LA BASE DE DATOS
+  return await Pokemon.findAll({
+    include: {
+      model: Type,
+      attributes: ["name"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
+};
+
+const getAllPokemons = async () => {
+  // aca junto todaa la info traida de la api y de mi bd
+  const apiInfo = await getApiInfo();
+  const dbinfo = await getDbInfo();
+  const infoTotal = apiInfo.concat(dbinfo);
+
+  return infoTotal;
+};
+
+const APItypes = "https://pokeapi.co/api/v2/type"; //llega ok, me trae url
+
+const getApiTypes = async () => {
+  const { data } = await axios.get(APItypes); // Esta info representa el resultado del endpoint principal
+  //console.log(data);
+
+  const typePromises = await data.results.map(async (ty) => {
+    const { data } = await axios.get(ty.url);
+    //console.log(data);
+    return data; // tengo la data dentro de results, osea toda la info de ese type de poke
+  });
+  const allTypes = await Promise.all(typePromises);
+  const parsedTypes = allTypes.map((ty) => ({
+    tipo: ty.name, //genero un array con todos los typos existentes
+  }));
+
+  return parsedTypes;
+};
+
+//ROUTES
+/*
+router.get("/pokemons", async (req, res) => {
+    const dataApi = await getApiInfo();
+    res.json(dataApi);
+});*/
+//OK
+router.get("/types", async (req, res) => {
+  const dataApi = await getApiTypes();
+  const eachType = dataApi.map((x) => x);
+
+  eachType.forEach((el) => {
+    Type.findOrCreate({ where: { name: el.tipo } }); //conecto aca la api con la db, gracias a MODEL.FIND-OR-CREATE
+  });
+  const allTypesArray = await Type.findAll();
+  res.json(allTypesArray); //guardo otipos en el modelo
+});
+
+//OK
+router.get("/pokemons", async (req, res) => {
+  const name = req.query.name;
+  let pokemonsTotal = await getAllPokemons(); //llamo toda la info de api y db para la ruta POKEMONS
+  if (name) {
+    let pokemonName = await pokemonsTotal.filter((el) =>
+      el.name.toLowerCase().includes(name.toLowerCase())
+    );
+    pokemonName.length
+      ? res.status(200).send(pokemonName)
+      : res.status(404).send("no exise ese pokemon");
+  } else {
+    res.status(200).send(pokemonsTotal);
+  }
+});
+//OK
+router.post("/pokemons", async (req, res) => {
+  let { name, height, weight, health, attack, defense, speed, type } = req.body;
+  // desconst de body todo lo q me trae el form (seria con lo q lleno cada POKE NUEVO)
+  let createdPokemon = await Pokemon.create({
+    name,
+    height,
+    weight,
+    health,
+    attack,
+    defense,
+    speed,
+  });
+  let typeDb = await Type.findAll({ where: { name: type } });
+  await createdPokemon.addTypes(typeDb); // metodo de SEQUALIZE(add) junto lo q traje de BODY () y le agrego lo que traje de DB( que coincida con lo que mande del body)
+
+  res.send("Felicitaciones! creaste un POKEMON");
+});
+//OK
+router.get("/pokemons/:id", async (req, res) => {
+  const { id } = req.params;
+  const pokemonsTotal = await getAllPokemons();
+  if (id) {
+    let pokemonId = pokemonsTotal.filter((el) => el.id == id);
+    pokemonId.length
+      ? res.status(200).json(pokemonId)
+      : res.status(404).send("no hay personaje");
+  }
+});
+
+module.exports = router;
