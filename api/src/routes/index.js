@@ -6,11 +6,11 @@ const axios = require("axios");
 const { Type, Pokemon } = require("../db");
 //const Pokemon = require('../models/Pokemon');
 //const Type = require('../models/Type');
-
+//pk.sprites.other["official-artwork"].front_default
 const router = express();
 router.use(express.json());
 
-const API = "https://pokeapi.co/api/v2/pokemon";
+const API = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20";
 
 //console.log(API)
 // Configurar los routers
@@ -29,10 +29,13 @@ const getApiInfo = async () => {
     name: pk.name,
     height: pk.height,
     weight: pk.weight,
-    image: pk.sprites.other["official-artwork"].front_default,
+    image:
+      pk.sprites.other["dream_world"].front_default ||
+      pk.sprites.other["official-artwork"].front_default,
     attack: pk.stats[1].base_stat,
     defense: pk.stats[2].base_stat,
     speed: pk.stats[5].base_stat,
+    health: pk.stats[0].base_stat,
   }));
 
   return parsedPokemons;
@@ -73,8 +76,10 @@ const getApiTypes = async () => {
   });
   const allTypes = await Promise.all(typePromises);
   const parsedTypes = allTypes.map((ty) => ({
-    tipo: ty.name, //genero un array con todos los typos existentes
+    type: ty.name,
+    pokemons: ty.pokemon.map((el) => el.pokemon.name), //genero un array con todos los typos existentes
   }));
+  //console.log(parsedTypes);
 
   return parsedTypes;
 };
@@ -91,7 +96,7 @@ router.get("/types", async (req, res) => {
   const eachType = dataApi.map((x) => x);
 
   eachType.forEach((el) => {
-    Type.findOrCreate({ where: { name: el.tipo } }); //conecto aca la api con la db, gracias a MODEL.FIND-OR-CREATE
+    Type.findOrCreate({ where: { name: el.type } }); //conecto aca la api con la db, gracias a MODEL.FIND-OR-CREATE
   });
   const allTypesArray = await Type.findAll();
   res.json(allTypesArray); //guardo otipos en el modelo
