@@ -7,18 +7,19 @@ import Card from "./Card"
 import Paginado from "./Paginado"
 import SearchBar from "./SearchBar"
 
+
 export default function Home () {
     const dispatch = useDispatch()
 
     const allPokemons = useSelector((state)=> state.pokemons) // es como "MAP state to PROPS"
-    
+      
     //PAGINADO
     const [currentPage, setCurrentPage] = useState(1) //declaro estado local y paso pagina actual (la primera)
     const [pokemonsPerPage] = useState(9) // cantidad de pokes por pagina
     const indexLastPoke = currentPage * pokemonsPerPage
     const indexFirstPoke = indexLastPoke - pokemonsPerPage
     const currentPokemons = allPokemons.slice(indexFirstPoke, indexLastPoke)
-
+ 
     // aca hago el renderisado
     const paginado = (pageNumbers) => { 
         setCurrentPage(pageNumbers)
@@ -31,23 +32,18 @@ export default function Home () {
         e.preventDefault(); //es para que no vuelvan a cargarse estados por culpa de useEffect
         dispatch(getPokemons())
     }
-    
+    /*
     function handleFilterTypes(e) {
         e.preventDefault();
         dispatch(filterPokemonByType(e.target.value))
-    }
+    }*/
  
     return (
-    <div>
+    <div className="flex">
         <Link to="/pokemon">Creat your pokemon</Link>  
         <h1>LA ROMPE POKEMON</h1>
         <button onClick={(e) => {handleClick(e)}}>RECHARGE</button>
         <div>
-<select onChange={e=> handleFilterTypes(e)}>
-    <option value="All">todos</option>
-    <option value="ice">hielo</option>
-    <option value="fire">fuego</option>
-</select>
             <Paginado pokemonsPerPage = {pokemonsPerPage} allPokemons = {allPokemons.length} paginado = {paginado} />
             <SearchBar/>
             {
@@ -62,7 +58,8 @@ export default function Home () {
                         speed={el.speed} 
                         attack ={el.attack}
                         health ={el.health}
-                        image ={el.image} />
+                        image ={el.image}
+                        types ={ el.types} />
                         </Link> 
                     </div>  
                         )
@@ -74,8 +71,13 @@ export default function Home () {
 }
 
 
+/*
 
-
+<select onChange={e=> handleFilterTypes(e)}>
+    <option value="All">todos</option>
+    <option value="ice">hielo</option>
+    <option value="fire">fuego</option>
+</select>*/
 
 
 

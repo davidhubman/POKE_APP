@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
       default: 0,
     },
     weight: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
     },
     health: {
       type: DataTypes.INTEGER,
@@ -38,6 +38,9 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       default: 0,
     },
+    /*  pokeTypes: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+    },*/
   });
 };
 

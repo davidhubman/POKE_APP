@@ -1,20 +1,41 @@
 const initialState = {
     pokemons: [],
+    allPokemons: [],
+    detail: [],
+    types: [],
 }
 
 function rootReducer(state = initialState, action) {
     switch (action.type) {
+        //home
         case 'GET_POKEMONS':
             return {
                 ...state,
                 pokemons: action.payload,
             }
+        //serchbar
         case 'GET_NAME_POKEMONS':
             return {
                 ...state,
                 pokemons: action.payload,
             }
-        case 'FILTER_BY_TYPE':
+        //pokecreate
+        case 'POST_POKEMON':
+            return {
+                ...state,
+            }
+        case 'GET_TYPES':
+            return {
+                ...state,
+                types: action.payload,
+            }
+        case 'GET_DETAILS':
+            return {
+                ...state,
+                detail: action.payload,
+            }
+        //filtro
+        /*  case 'FILTER_BY_TYPE':
             const allPokemons = state.pokemons
 
             const typeFiltered =
@@ -25,7 +46,7 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 pokemons: typeFiltered,
-            }
+            }*/
         default:
             return state
     }

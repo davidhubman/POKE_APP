@@ -10,7 +10,7 @@ const { Type, Pokemon } = require("../db");
 const router = express();
 router.use(express.json());
 
-const API = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20";
+const API = "https://pokeapi.co/api/v2/pokemon";
 
 //console.log(API)
 // Configurar los routers
@@ -36,6 +36,7 @@ const getApiInfo = async () => {
     defense: pk.stats[2].base_stat,
     speed: pk.stats[5].base_stat,
     health: pk.stats[0].base_stat,
+    types: pk.types.map((ty) => ty.type.name),
   }));
 
   return parsedPokemons;
@@ -118,26 +119,31 @@ router.get("/pokemons", async (req, res) => {
   }
 });
 //OK
-router.post("/pokemons", async (req, res) => {
-  let { name, height, weight, health, attack, defense, speed, type } = req.body;
-  // desconst de body todo lo q me trae el form (seria con lo q lleno cada POKE NUEVO)
-  let createdPokemon = await Pokemon.create({
-    name,
-    height,
-    weight,
-    health,
-    attack,
-    defense,
-    speed,
-  });
-  let typeDb = await Type.findAll({ where: { name: type } });
-  await createdPokemon.addTypes(typeDb); // metodo de SEQUALIZE(add) junto lo q traje de BODY () y le agrego lo que traje de DB( que coincida con lo que mande del body)
+router.post("/pokemons", async (req, res, next) => {
+  try {
+    let { name, height, weight, health, attack, defense, speed, type } =
+      req.body;
+    // desconst de body todo lo q me trae el form (seria con lo q lleno cada POKE NUEVO)
+    let createdPokemon = await Pokemon.create({
+      name,
+      height,
+      weight,
+      health,
+      attack,
+      defense,
+      speed,
+    });
+    let typeDb = await Type.findAll({ where: { name: type } });
+    await createdPokemon.addTypes(typeDb); // metodo de SEQUALIZE(add) junto lo q traje de BODY () y le agrego lo que traje de DB( que coincida con lo que mande del body)
 
-  res.send("Felicitaciones! creaste un POKEMON");
+    res.send("Felicitaciones! creaste un POKEMON");
+  } catch (error) {
+    next(error);
+  }
 });
 //OK
 router.get("/pokemons/:id", async (req, res) => {
-  const { id } = req.params;
+  const id = req.params.id;
   const pokemonsTotal = await getAllPokemons();
   if (id) {
     let pokemonId = pokemonsTotal.filter((el) => el.id == id);
