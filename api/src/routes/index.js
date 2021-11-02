@@ -10,7 +10,7 @@ const { Type, Pokemon } = require("../db");
 const router = express();
 router.use(express.json());
 
-const API = "https://pokeapi.co/api/v2/pokemon";
+const API = "https://pokeapi.co/api/v2/pokemon?offset=20&limit=40";
 
 //console.log(API)
 // Configurar los routers
@@ -126,12 +126,12 @@ router.post("/pokemons", async (req, res, next) => {
     // desconst de body todo lo q me trae el form (seria con lo q lleno cada POKE NUEVO)
     let createdPokemon = await Pokemon.create({
       name,
-      height,
-      weight,
-      health,
-      attack,
-      defense,
-      speed,
+      height: parseInt(height),
+      weight: parseInt(weight),
+      health: parseInt(health),
+      attack: parseInt(attack),
+      defense: parseInt(defense),
+      speed: parseInt(speed),
     });
     let typeDb = await Type.findAll({ where: { name: type } });
     await createdPokemon.addTypes(typeDb); // metodo de SEQUALIZE(add) junto lo q traje de BODY () y le agrego lo que traje de DB( que coincida con lo que mande del body)

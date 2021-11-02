@@ -7,14 +7,14 @@ export default function PokeCreate(){
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const types = useSelector((state) => state.types)
+    //const type = useSelector((state) => state.types)
 
     const [input, setInput] = useState({
         id: "",
         name: "",
         height: "",
         weight: "",
-        image:"%PUBLIC_URL%/finalogo.png",
+        image:"",
         attack: "",
         defense: "",
         speed: "",
@@ -33,7 +33,7 @@ export default function PokeCreate(){
         if (e.target.checked){
             setInput({
                 ...input,
-                status: e.target.value
+                types: [...input.types, {name: e.target.value}]
             })
         }
     }
@@ -43,19 +43,20 @@ export default function PokeCreate(){
         console.log(input);
         dispatch(postPokemon(input))
         alert("Felicitaciones!! Creaste un pokemon")
-        setInput({
-            name: "",
-            height: "",
-            weight: "",
-            image:"",
-            attack: "",
-            defense: "",
-            speed: "",
-            health: "",
-            types:[], 
-        })
-      history.push("/home")
+        history.push("/home")
     }
+
+    /*setInput({
+        name: "",
+        height: "",
+        weight: "",
+        image:"",
+        attack: "",
+        defense: "",
+        speed: "",
+        health: "",
+        type:[], 
+    })*/
 
     useEffect(()=> {
         dispatch(getTypes());
@@ -96,7 +97,7 @@ export default function PokeCreate(){
               <div>
                   <label>Velocidad:</label>
                   <input 
-                  type="text"
+                  type="number"
                   value={input.speed}
                   name = "speed"
                   onChange = {(e)=>{handleChange(e)}}
@@ -117,6 +118,15 @@ export default function PokeCreate(){
                   type="number"
                   value={input.health}
                   name = "health"
+                  onChange = {(e)=>{handleChange(e)}}
+                  />
+              </div>
+              <div>
+                  <label>Defensa:</label>
+                  <input 
+                  type="number"
+                  value={input.defense}
+                  name = "defense"
                   onChange = {(e)=>{handleChange(e)}}
                   />
               </div>

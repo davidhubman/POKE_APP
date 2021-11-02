@@ -3,6 +3,7 @@ import {Link} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import { getDetail } from "../actions"
 import { useEffect } from "react"
+//import
 
 export default function Detail(props){
     //console.log(props)
@@ -15,7 +16,7 @@ export default function Detail(props){
     const myPokemon = useSelector((state) => state.detail)
 
     return(
-        <div class="card">
+        <div className="card">
          {
         myPokemon.length > 0 ?
         <div>

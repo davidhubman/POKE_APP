@@ -28,6 +28,7 @@ export function getNamePokemons(name) {
 }
 export function postPokemon(payload) {
     return async function (dispatch) {
+        console.log('soy payload de action', payload)
         const created = await axios.post(
             'http://localhost:3001/pokemons',
             payload

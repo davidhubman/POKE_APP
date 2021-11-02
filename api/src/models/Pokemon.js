@@ -38,7 +38,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       default: 0,
     },
-    /*  pokeTypes: {
+    /*  typesCreated: {
       type: DataTypes.ARRAY(DataTypes.STRING),
     },*/
   });
