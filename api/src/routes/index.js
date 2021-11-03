@@ -1,22 +1,23 @@
-//const { Router } = require('express');
-const express = require("express");
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
+const { Router } = require("express");
 const axios = require("axios");
 const { Type, Pokemon } = require("../db");
-const db = require("../db");
+
+const router = Router();
+//const express = require("express");
+
+//const db = require("../db");
 //const Pokemon = require('../models/Pokemon');
 //const Type = require('../models/Type');
 //pk.sprites.other["official-artwork"].front_default
-const router = express();
-router.use(express.json());
+//const router = express();
+//router.use(express.json());
 
 const API = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=40";
 
 //console.log(API)
-// Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
+
 //LLAMADOS API y DB
+
 const getApiInfo = async () => {
   const { data } = await axios.get(API); // Esta info representa el resultado del endpoint principal
   // pokemonPromises es un array promesas que generamos mapeando el array data.results y dentro del map hacemos un request a otro endpoint para traer los detalles del pokemon.
@@ -55,7 +56,7 @@ const getDbInfo = async () => {
     },
   });
 };
-console.log(getDbInfo());
+//console.log(getDbInfo());
 
 const getAllPokemons = async () => {
   // aca junto todaa la info traida de la api y de mi bd
@@ -73,7 +74,7 @@ const getAllPokemons = async () => {
   const infoTotal = apiInfo.concat(dbInfo);
   return infoTotal;
 };
-console.log(getAllPokemons());
+//console.log(getAllPokemons());
 
 const APItypes = "https://pokeapi.co/api/v2/type"; //llega ok, me trae url
 
@@ -102,6 +103,7 @@ router.get("/pokemons", async (req, res) => {
     const dataApi = await getApiInfo();
     res.json(dataApi);
 });*/
+
 //OK
 router.get("/types", async (req, res) => {
   const dataApi = await getApiTypes();
@@ -129,6 +131,7 @@ router.get("/pokemons", async (req, res) => {
     res.status(200).send(pokemonsTotal);
   }
 });
+
 //OK
 router.post("/pokemons", async (req, res, next) => {
   try {

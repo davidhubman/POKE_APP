@@ -20,7 +20,7 @@ import rock from "./types/rock.png"
 import steel from "./types/steel.png"
 import water from "./types/water.png"
 //ImagenDefaul
-import gifDefault from './imagenes/gifDefault.gif'
+import gifDefault from './imagenes/Default.gif'
 
 export default function Card({name, image, types, id}) {
     
