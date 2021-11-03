@@ -1,10 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
+//import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { Provider } from 'react-redux'
 import { store } from './store'
+
+// estilos GLOBALES
+import './normalize.css'
+import './global.css'
 
 ReactDOM.render(
     <Provider store={store}>

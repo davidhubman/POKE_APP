@@ -1,0 +1,23 @@
+.background {
+    background-image: url('../components/imagenes/bienvenido.png');
+    height: 100vh;
+    background-size: cover;
+    background-position:center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content:space-around;
+    align-items:center;
+    overflow: auto;
+    color:blanchedalmond;
+}
+
+.buttonLanding {
+    margin-right: -837px;
+    margin-bottom: 646px;
+    height:100px; 
+    width:360px;
+    border-radius: 20px;
+    top: 50%;
+    margin-top: calc(-48px - 5px);
+    font-size:xx-large;
+}

@@ -3,7 +3,8 @@ import {Link} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
 import { getDetail } from "../actions"
 import { useEffect } from "react"
-//import
+import typeImages from "./types/fire.png"
+import styles from "./Detail.module.css"
 
 export default function Detail(props){
     //console.log(props)
@@ -14,19 +15,24 @@ export default function Detail(props){
     },[dispatch])
 
     const myPokemon = useSelector((state) => state.detail)
-
+    
+    console.log(typeImages)
     return(
         <div className="card">
          {
         myPokemon.length > 0 ?
         <div>
-           <h1>Soy {myPokemon[0].name}</h1>
-           <h1>Mido {myPokemon[0].height}</h1>
-           <h1>Peso {myPokemon[0].weight}</h1>
-           <h1>Mi nivel de ataque es {myPokemon[0].attack}</h1>
-           <h1>Mi nivel de defensa es {myPokemon[0].defense}</h1>
-           <h1>Mi velocidad es {myPokemon[0].speed}</h1>
-           <h1>Mi salud es {myPokemon[0].health}</h1>
+            <div>
+            <h1>{myPokemon[0].name.toUpperCase()}</h1>
+            </div>
+           <div><h3>Estatura:</h3><progress className={styles.progressValue} max="100" value={myPokemon[0].height}>Altura</progress></div>
+           <div><h3>Peso:</h3><progress className={styles.progressValue} max="100" value={myPokemon[0].weight}>peso</progress></div>
+           <div><h3>Ataque:</h3><progress className={styles.progressValue} max="100" value={myPokemon[0].attack}>ataque</progress></div>
+           <div><h3>Defensa:</h3><progress className={styles.progressValue} max="100" value={myPokemon[0].defense}>defensa</progress></div>
+           <div><h3>Velocidad:</h3><progress className={styles.progressValue} max="100" value={myPokemon[0].speed}>velocidad</progress></div>
+           <div><h3>Salud:</h3><progress className={styles.progressValue} max="100" value={myPokemon[0].health}>salud</progress></div>
+           
+           <h3>Tipos:{myPokemon[0].types}</h3>
            <img src={myPokemon[0].image} alt="" width="500px" height="700px" />
         </div> : <p>loading...</p>
     }

@@ -1,6 +1,6 @@
 const initialState = {
     pokemons: [],
-    allPokemons: [],
+    allPokemons: [], //para renovar filtro
     detail: [],
     types: [],
 }
@@ -12,6 +12,7 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 pokemons: action.payload,
+                allPokemons: action.payload,
             }
         //serchbar
         case 'GET_NAME_POKEMONS':
@@ -34,10 +35,9 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 detail: action.payload,
             }
-        //filtro
-        /*  case 'FILTER_BY_TYPE':
-            const allPokemons = state.pokemons
-
+        /* //filtro/*
+        case 'FILTER_BY_TYPE':
+            const allPokemons = state.allPokemons
             const typeFiltered =
                 action.payload === 'All'
                     ? allPokemons

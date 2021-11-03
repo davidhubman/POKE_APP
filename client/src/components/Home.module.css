@@ -1,0 +1,27 @@
+
+button{
+    background-color: coral;
+    border-radius: 20px;
+    border: 2.5px solid black;
+    color: blanchedalmond;
+    
+}
+
+
+.background {
+    background-image: url('../components/imagenes/fondoHome.jpg');
+    background-repeat: no-repeat;
+ background-attachment: fixed;
+}
+
+/*
+    height: 100vh;
+    background-size: cover;
+    background-position:center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content:flex-end;
+    align-items:flex-end;
+    overflow: auto;
+    color:blanchedalmond;
+}  */

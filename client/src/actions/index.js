@@ -2,12 +2,16 @@ import axios from 'axios'
 
 export function getPokemons() {
     return async function (dispatch) {
-        var json = await axios.get('http://localhost:3001/pokemons')
-        //console.log(json.data)
-        return dispatch({
-            type: 'GET_POKEMONS',
-            payload: json.data,
-        })
+        try {
+            var json = await axios.get('http://localhost:3001/pokemons')
+            //console.log(json.data)
+            return dispatch({
+                type: 'GET_POKEMONS',
+                payload: json.data,
+            })
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
 //para el SEARCH
@@ -28,21 +32,29 @@ export function getNamePokemons(name) {
 }
 export function postPokemon(payload) {
     return async function (dispatch) {
-        console.log('soy payload de action', payload)
-        const created = await axios.post(
-            'http://localhost:3001/pokemons',
-            payload
-        )
-        //console.log(created)
-        return created
+        try {
+            console.log('soy payload de action', payload)
+            const created = await axios.post(
+                'http://localhost:3001/pokemons',
+                payload
+            )
+            //console.log(created)
+            return created
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
 
 export function getTypes() {
     return async function (dispatch) {
-        var json = await axios.get('http://localhost:3001/types', {})
+        try {
+            var json = await axios.get('http://localhost:3001/types', {})
 
-        return dispatch({ type: 'GET_TYPES', payload: json.data })
+            return dispatch({ type: 'GET_TYPES', payload: json.data })
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
 
@@ -60,7 +72,7 @@ export function getDetail(id) {
     }
 }
 /*
-export function filterPokemonByType(payload) {
+export function filterByType(payload) {
     return {
         type: 'FILTER_BY_TYPE',
         payload,

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { Link, useHistory } from "react-router-dom";
 import {postPokemon, getTypes} from "../actions/index"
 import { useDispatch, useSelector } from "react-redux";
+import styles from "./PokeCreate.module.css"
 
 export default function PokeCreate(){
     const dispatch = useDispatch()
@@ -19,7 +20,7 @@ export default function PokeCreate(){
         defense: "",
         speed: "",
         health: "",
-        types:[], 
+        type:[], 
     })
 
     function handleChange(e) {
@@ -30,17 +31,18 @@ export default function PokeCreate(){
     }
 
     function handleCheck(e) {
-        if (e.target.checked){
+        if (e.target.checked){ 
+            console.log(e.target.value)
+
             setInput({
                 ...input,
-                types: [...input.types, {name: e.target.value}]
+                type: [...input.type, {name: e.target.value}]
             })
         }
     }
     
     function handleSubmit(e){
         e.preventDefault();
-        console.log(input);
         dispatch(postPokemon(input))
         alert("Felicitaciones!! Creaste un pokemon")
         history.push("/home")
@@ -63,7 +65,7 @@ export default function PokeCreate(){
     }, []);
 
     return(
-        <div>
+        <div className={styles.fondo}>
             <Link to ="/home"><button>RETURN</button></Link>
             <h1>CREA TU POKEMON</h1>
             <form onSubmit={(e)=>{handleSubmit(e)}}>
@@ -79,54 +81,66 @@ export default function PokeCreate(){
               <div>
                   <label>Altura:</label>
                   <input 
-                  type="number"
-                  value={input.height}
                   name = "height"
+                  type="range"
+                  min="1"
+                  max ="100"
+                  value={input.height}
                   onChange = {(e)=>{handleChange(e)}}
                   />
               </div>
               <div>
                   <label>Peso:</label>
                   <input 
-                  type="number"
-                  value={input.weight}
                   name = "weight"
+                  type="range"
+                  min="1"
+                  max ="100"
+                  value={input.weight}
                   onChange = {(e)=>{handleChange(e)}}
                   />
               </div>
               <div>
                   <label>Velocidad:</label>
                   <input 
-                  type="number"
-                  value={input.speed}
                   name = "speed"
+                  type="range"
+                  min="1"
+                  max ="100"
+                  value={input.speed}
                   onChange = {(e)=>{handleChange(e)}}
                   />
               </div>
               <div>
                   <label>Ataque:</label>
                   <input 
-                  type="number"
-                  value={input.attack}
                   name = "attack"
+                  type="range"
+                  min="1"
+                  max ="100"
+                  value={input.attack}
                   onChange = {(e)=>{handleChange(e)}}
                   />
               </div>
               <div>
                   <label>salud:</label>
                   <input 
-                  type="number"
-                  value={input.health}
                   name = "health"
+                  type="range"
+                  min="1"
+                  max ="100"
+                  value={input.health}
                   onChange = {(e)=>{handleChange(e)}}
                   />
               </div>
               <div>
                   <label>Defensa:</label>
                   <input 
-                  type="number"
-                  value={input.defense}
                   name = "defense"
+                  type="range"
+                  min="1"
+                  max ="100"
+                  value={input.defense}
                   onChange = {(e)=>{handleChange(e)}}
                   />
               </div>

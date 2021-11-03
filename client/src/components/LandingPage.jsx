@@ -1,14 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import bienvenido from './bienvenido.png'
+//import bienvenido from "./bienvenido.png"
+import styles from "./LandingPage.module.css"
 
 export default function LandingPage() {
     return (
-        <div>
-            <h1>Welcome to POKEPEDIA</h1>
-            <img src={bienvenido} alt='joder'/>
+        <div className={ styles.background}>
             <Link to='/home'>
-                <button>LET'S GO!</button>
+                <button className={styles.buttonLanding}>BIENVENIDO!</button>
             </Link>
         </div>
     )

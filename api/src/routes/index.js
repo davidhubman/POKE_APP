@@ -10,7 +10,7 @@ const { Type, Pokemon } = require("../db");
 const router = express();
 router.use(express.json());
 
-const API = "https://pokeapi.co/api/v2/pokemon?offset=20&limit=40";
+const API = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=40";
 
 //console.log(API)
 // Configurar los routers
@@ -60,9 +60,12 @@ const getAllPokemons = async () => {
   const apiInfo = await getApiInfo();
   const dbinfo = await getDbInfo();
   const infoTotal = apiInfo.concat(dbinfo);
-
+  //console.log("ACA API INF", apiInfo);
+  console.log("ACA DB INFO", dbinfo);
+  //console.log("yo soy info totoal", infoTotal);
   return infoTotal;
 };
+console.log(getAllPokemons());
 
 const APItypes = "https://pokeapi.co/api/v2/type"; //llega ok, me trae url
 
