@@ -4,6 +4,7 @@ const express = require("express");
 // Ejemplo: const authRouter = require('./auth.js');
 const axios = require("axios");
 const { Type, Pokemon } = require("../db");
+const db = require("../db");
 //const Pokemon = require('../models/Pokemon');
 //const Type = require('../models/Type');
 //pk.sprites.other["official-artwork"].front_default
@@ -54,15 +55,22 @@ const getDbInfo = async () => {
     },
   });
 };
+console.log(getDbInfo());
 
 const getAllPokemons = async () => {
   // aca junto todaa la info traida de la api y de mi bd
   const apiInfo = await getApiInfo();
-  const dbinfo = await getDbInfo();
-  const infoTotal = apiInfo.concat(dbinfo);
-  //console.log("ACA API INF", apiInfo);
-  console.log("ACA DB INFO", dbinfo);
-  //console.log("yo soy info totoal", infoTotal);
+  const dbInfo = await getDbInfo();
+  //console.log("ACA DB INFO", dbInfo);
+  /*
+  const dbNormalized = function () {
+    const type = dbInfo.types;
+    //console.log(type);
+     if (type.length > 0) {
+      return type.map((p) => p.name).join(",");
+    }
+  };*/
+  const infoTotal = apiInfo.concat(dbInfo);
   return infoTotal;
 };
 console.log(getAllPokemons());

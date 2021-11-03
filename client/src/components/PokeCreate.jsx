@@ -20,7 +20,7 @@ export default function PokeCreate(){
         defense: "",
         speed: "",
         health: "",
-        type:[], 
+        type:'', 
     })
 
     function handleChange(e) {
@@ -36,7 +36,7 @@ export default function PokeCreate(){
 
             setInput({
                 ...input,
-                type: [...input.type, {name: e.target.value}]
+                type: [...input.type, e.target.value]
             })
         }
     }
