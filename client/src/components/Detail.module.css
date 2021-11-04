@@ -27,3 +27,24 @@ progress {
   @keyframes load {
     0% { width: 0; }
   }
+
+  .detailBack{
+    background-image: url('../components/imagenes/fondoDetail.jpg');
+  }
+
+  .allDetail{
+   background-color: tomato;
+  }
+  .nombre{
+    background-color: violet;
+  }
+  .stats{
+    background-color: blue;
+  }
+  .tipo{
+    background-color: red;
+    width: 20vh;
+  }
+  .imagen{
+    background-color: purple;
+  }

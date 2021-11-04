@@ -1,3 +1,31 @@
-.card {
-    display:flex-wrap;
+.Card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:transparent;
+    margin: 0 1vw 0 1vw;
+    width: 15vw;
+    height: 30vh;
+    transition: 0.5s;
+    border-radius: 20px;
+}
+
+.Card:hover{
+    box-shadow: 0 0 20px rgb(32, 15, 15), 0 0 20px grey;
+    padding:5px;
+    
+}
+.tipo{
+    width: 25px; 
+    padding:10px 0;
+}
+.imagenPoke{
+    width: 12vw;
+    transition: 0.5s;
+}
+.imagenPoke:hover{
+    padding:10px;
+    width: 15vw;
+    top:50vh;
+    left:50vw;
 }

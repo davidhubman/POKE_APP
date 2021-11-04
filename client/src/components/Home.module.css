@@ -1,17 +1,49 @@
 
 button{
-    background-color: coral;
+    background-color: transparent;
     border-radius: 20px;
     border: 2.5px solid black;
-    color: blanchedalmond;
-    
+    color: rgb(141, 32, 32);;
+    box-shadow: 0 0 20px rgb(32, 15, 15), 0 0 20px grey;
+    padding: 1vh;
 }
 
+button:hover{
+    box-shadow: 0 0 20px rgb(141, 32, 32);
+    padding:5px;
+    background-color:rgb(219, 26, 26) ;
+    color:white;
+}
 
 .background {
-    background-image: url('../components/imagenes/fondoHome.jpg');
+    background-image: url('../components/imagenes/fondoHome.png');
+    background-size: cover;
     background-repeat: no-repeat;
- background-attachment: fixed;
+    background-attachment:fixed;
+
+ height: 200vh;
+}
+
+.boxCard{
+    display:flex;
+    flex-wrap: wrap;
+    background-color:transparent;
+    height: 100%;
+    width: 90vw;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.segundoBack{
+    box-shadow: 0 0 20px rgb(32, 15, 15), 0 0 20px grey;
+    background-color:transparent;
+    display: center;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    padding: 5vh;
+    margin: 2vw;
 }
 
 /*

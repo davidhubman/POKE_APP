@@ -1,16 +1,13 @@
-const { Router } = require("express");
+//const { Router } = require("express");
 const axios = require("axios");
 const { Type, Pokemon } = require("../db");
 
-const router = Router();
-//const express = require("express");
+//const router = Router();
+const express = require("express");
 
 //const db = require("../db");
-//const Pokemon = require('../models/Pokemon');
-//const Type = require('../models/Type');
-//pk.sprites.other["official-artwork"].front_default
-//const router = express();
-//router.use(express.json());
+const router = express();
+router.use(express.json());
 
 const API = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=40";
 
@@ -20,7 +17,8 @@ const API = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=40";
 
 const getApiInfo = async () => {
   const { data } = await axios.get(API); // Esta info representa el resultado del endpoint principal
-  // pokemonPromises es un array promesas que generamos mapeando el array data.results y dentro del map hacemos un request a otro endpoint para traer los detalles del pokemon.
+  // pokemonPromises es un array promesas que generamos mapeando el array data.results y dentro del map hacemos
+  //un request a otro endpoint para traer los detalles del pokemon.
   const pokemonPromises = await data.results.map(async (pokemon) => {
     const { data } = await axios.get(pokemon.url);
     return data;
@@ -56,13 +54,12 @@ const getDbInfo = async () => {
     },
   });
 };
-//console.log(getDbInfo());
 
 const getAllPokemons = async () => {
   // aca junto todaa la info traida de la api y de mi bd
   const apiInfo = await getApiInfo();
   const dbInfo = await getDbInfo();
-  //console.log("ACA DB INFO", dbInfo);
+  // console.log("ACA DB INFO", dbInfo);
   /*
   const dbNormalized = function () {
     const type = dbInfo.types;
@@ -105,30 +102,38 @@ router.get("/pokemons", async (req, res) => {
 });*/
 
 //OK
-router.get("/types", async (req, res) => {
-  const dataApi = await getApiTypes();
-  const eachType = dataApi.map((x) => x);
+router.get("/types", async (req, res, next) => {
+  try {
+    const dataApi = await getApiTypes();
+    const eachType = dataApi.map((x) => x);
 
-  eachType.forEach((el) => {
-    Type.findOrCreate({ where: { name: el.type } }); //conecto aca la api con la db, gracias a MODEL.FIND-OR-CREATE
-  });
-  const allTypesArray = await Type.findAll();
-  res.json(allTypesArray); //guardo otipos en el modelo
+    eachType.forEach((el) => {
+      Type.findOrCreate({ where: { name: el.type } }); //conecto aca la api con la db, gracias a MODEL.FIND-OR-CREATE
+    });
+    const allTypesArray = await Type.findAll();
+    res.json(allTypesArray); //guardo tipos en el modelo
+  } catch (error) {
+    next(error);
+  }
 });
 
 //OK
-router.get("/pokemons", async (req, res) => {
-  const name = req.query.name;
-  let pokemonsTotal = await getAllPokemons(); //llamo toda la info de api y db para la ruta POKEMONS
-  if (name) {
-    let pokemonName = await pokemonsTotal.filter((el) =>
-      el.name.toLowerCase().includes(name.toLowerCase())
-    );
-    pokemonName.length
-      ? res.status(200).send(pokemonName)
-      : res.status(404).send("no exise ese pokemon");
-  } else {
-    res.status(200).send(pokemonsTotal);
+router.get("/pokemons", async (req, res, next) => {
+  try {
+    const name = req.query.name;
+    let pokemonsTotal = await getAllPokemons(); //llamo toda la info de api y db para la ruta POKEMONS
+    if (name) {
+      let pokemonName = await pokemonsTotal.filter((el) =>
+        el.name.toLowerCase().includes(name.toLowerCase())
+      );
+      pokemonName.length
+        ? res.status(200).send(pokemonName)
+        : res.status(404).send("no exise ese pokemon");
+    } else {
+      res.status(200).send(pokemonsTotal);
+    }
+  } catch (error) {
+    next(error);
   }
 });
 
@@ -156,7 +161,7 @@ router.post("/pokemons", async (req, res, next) => {
   }
 });
 //OK
-router.get("/pokemons/:id", async (req, res) => {
+router.get("/pokemons/:id", async (req, res, next) => {
   const id = req.params.id;
   const pokemonsTotal = await getAllPokemons();
   if (id) {

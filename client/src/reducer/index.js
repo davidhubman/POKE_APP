@@ -9,13 +9,24 @@ function rootReducer(state = initialState, action) {
     switch (action.type) {
         //home
         case 'GET_POKEMONS':
+            action.payload.map((x) => {
+                if (x.id.length > 7) {
+                    return (x.types = x.types.map((p) => p.name).join(','))
+                } else return (x.types = x.types.join(','))
+            }) //normalizoTypesAstrings
+            //console.log(action.payload)
             return {
                 ...state,
                 pokemons: action.payload,
-                allPokemons: action.payload,
+                //allPokemons: action.payload,
             }
         //serchbar
         case 'GET_NAME_POKEMONS':
+            action.payload.map((x) => {
+                if (x.id.length > 7) {
+                    return (x.types = x.types.map((p) => p.name).join(','))
+                } else return (x.types = x.types.join(','))
+            }) // normalizer
             return {
                 ...state,
                 pokemons: action.payload,
@@ -30,7 +41,13 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 types: action.payload,
             }
+        //DETAILS
         case 'GET_DETAILS':
+            action.payload.map((x) => {
+                if (x.id.length > 7) {
+                    return (x.types = x.types.map((p) => p.name).join(','))
+                } else return (x.types = x.types.join(','))
+            }) //normalizoTypesAstrings
             return {
                 ...state,
                 detail: action.payload,

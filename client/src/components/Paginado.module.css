@@ -1,3 +1,17 @@
 .paginado{
   
 }
+
+.botonPaginado{
+    box-shadow: 0 0 20px rgb(32, 15, 15), 0 0 20px grey;
+    background-color:transparent;
+    align-items: center;
+    height: 2.5vh;
+    width: 5vw;
+    color:white;
+}
+
+.botonPaginado:hover{
+    height: 4vh;
+    width: 9vw;
+}
