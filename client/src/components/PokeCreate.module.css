@@ -1,4 +1,36 @@
 .fondo {
         background-image: url('../components/imagenes/creator.jpg');
         background-position: cover;
+        text-align: center;
+        height: 110vh;
+}
+
+.boxCreator{
+        box-shadow: 0 0 20px rgb(32 15 15), 0 0 20px grey;
+        background-color: transparent;
+        padding: 1vh;
+        margin: 10vh;
+}
+
+.checkBox{
+        background-color: tomato;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: space-around;
+        width: 50%;
+        height: 45vh;
+        float: right;
+        justify-content: space-between;
+}
+.barras{
+        background-color: yellowgreen;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-content: space-between;
+        width: 50%;
+        height: 50vh;
+        float:left;
+        justify-content: space-around;
 }

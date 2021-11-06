@@ -18,7 +18,7 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 pokemons: action.payload,
-                //allPokemons: action.payload,
+                allPokemons: action.payload,
             }
         //serchbar
         case 'GET_NAME_POKEMONS':
@@ -52,18 +52,61 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 detail: action.payload,
             }
-        /* //filtro/*
+        //filtro/*
         case 'FILTER_BY_TYPE':
             const allPokemons = state.allPokemons
+            //console.log(allPokemons)
+
             const typeFiltered =
                 action.payload === 'All'
                     ? allPokemons
-                    : allPokemons.filter((el) => el.type === action.payload)
-
+                    : allPokemons.filter((el) =>
+                          el.types.includes(action.payload)
+                      )
+            //console.log(typeFiltered)
             return {
                 ...state,
                 pokemons: typeFiltered,
-            }*/
+            }
+        case 'FILTER_BY_CREATED':
+            const filterCreated =
+                action.payload === 'created'
+                    ? state.allPokemons.filter((el) => el.id.length > 10)
+                    : state.allPokemons.filter(
+                          (el) => el.id.toString().length < 4
+                      )
+            return {
+                ...state,
+                pokemons:
+                    action.payload === 'All'
+                        ? state.allPokemons
+                        : filterCreated,
+            }
+        case 'ORDER_BY_NAME':
+            let arrayOrder =
+                action.payload === 'asc'
+                    ? state.pokemons.sort(function (a, b) {
+                          if (a.name > b.name) {
+                              return 1
+                          }
+                          if (a.name < b.name) {
+                              return -1
+                          }
+                          return 0
+                      })
+                    : state.pokemons.sort(function (a, b) {
+                          if (a.name > b.name) {
+                              return -1
+                          }
+                          if (a.name < b.name) {
+                              return 1
+                          }
+                          return 0
+                      })
+            return {
+                ...state,
+                pokemons: arrayOrder,
+            }
         default:
             return state
     }

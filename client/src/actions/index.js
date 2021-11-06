@@ -33,7 +33,7 @@ export function getNamePokemons(name) {
 export function postPokemon(payload) {
     return async function (dispatch) {
         try {
-            console.log('soy payload de action', payload)
+            //console.log('soy payload de action', payload)
             const created = await axios.post(
                 'http://localhost:3001/pokemons',
                 payload
@@ -60,17 +60,35 @@ export function getTypes() {
 
 export function getDetail(id) {
     return async function (dispatch) {
-        var json = await axios.get('http://localhost:3001/pokemons/' + id)
-        return dispatch({
-            type: 'GET_DETAILS',
-            payload: json.data,
-        })
+        try {
+            var json = await axios.get('http://localhost:3001/pokemons/' + id)
+            return dispatch({
+                type: 'GET_DETAILS',
+                payload: json.data,
+            })
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
-/*
+
 export function filterByType(payload) {
     return {
         type: 'FILTER_BY_TYPE',
         payload,
     }
-}*/
+}
+
+export function filterByCreated(payload) {
+    return {
+        type: 'FILTER_BY_CREATED',
+        payload,
+    }
+}
+
+export function orderByName(payload) {
+    return {
+        type: 'ORDER_BY_NAME',
+        payload,
+    }
+}

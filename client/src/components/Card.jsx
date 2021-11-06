@@ -24,6 +24,8 @@ import gifDefault from './imagenes/Default.gif'
 
 export default function Card({name, image, types, id}) {
      //console.log(types)
+     //if(id.length > 10) return image =require('./imagenes/Default.gif').default
+     
      const arrayTypeImages = []
     
     if(types.includes('poison')) arrayTypeImages.push(poison)
@@ -45,23 +47,23 @@ export default function Card({name, image, types, id}) {
     if(types.includes('steel')) arrayTypeImages.push(steel)
     if(types.includes('water') )arrayTypeImages.push(water)
 
+
  return (
         <div className={styles.Card}>
         <div>
            <h4>{name.toUpperCase()}</h4>
-
+           <img src={image || gifDefault}  className={styles.imagenPoke} alt='img not found' />
+           
            {/* de type a image */}
            <div>
            {arrayTypeImages.map( (x) => <img src={x} className={styles.tipo} alt='img not found' />)}  
            </div>
-           {/* de API  DB */}
 
-           <img src={image || gifDefault }  className={styles.imagenPoke} alt='img not found' />
            </div>
         </div>
     )
 }
-
+//(require("./gifs/"+(name)+".gif").default) 
 /*  /*
     const typesNormalized = function(){
         if(id.length > 7) {

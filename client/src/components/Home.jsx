@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPokemons, filterByType } from '../actions'
+import { getPokemons, filterByType, filterByCreated, orderByName } from '../actions'
 import { Link } from 'react-router-dom'
 import Card from './Card'
 import Paginado from './Paginado'
@@ -21,6 +21,8 @@ export default function Home() {
     const indexLastPoke = currentPage * pokemonsPerPage
     const indexFirstPoke = indexLastPoke - pokemonsPerPage
     const currentPokemons = allPokemons.slice(indexFirstPoke, indexLastPoke)
+    //ORDENADO
+    const [order, setOrder] = useState('')
 
     // aca hago el renderisado
     const paginado = (pageNumbers) => {
@@ -34,14 +36,24 @@ export default function Home() {
         e.preventDefault() //es para que no vuelvan a cargarse estados por culpa de useEffect
         dispatch(getPokemons())
     }
-    /*
+    
     function handleFilterType(e) {
         //console.log(e.target.value)
         dispatch(filterByType(e.target.value))
-    }*/
+    }
+    function handleFilterCreated(e) {
+     dispatch(filterByCreated(e.target.value))
+    }
+    function handleSort(e) {
+        e.preventDefault()
+        dispatch(orderByName(e.target.value))
+        setCurrentPage(1)
+       setOrder(`Ordenado ${e.target.value}`)
+    }
 
     return (
         <div className={styles.background}>
+            <div className={styles.boxButtons}>
             <Link to="/pokemon">
                 <button className={styles.button}>CREA TU POKEMON!</button>
             </Link>
@@ -54,15 +66,37 @@ export default function Home() {
             >
                 RECHARGE
             </button>
-            <div>
+            <div className={styles.searchBar}>
                 <SearchBar />
             </div>
-            <div>
-                <select>
+            <div className={styles.filtersBox}>
+                <select onChange={(e)=> handleSort(e)}>
                     <option value="asc">Ascendente</option>
                     <option value="desc">Descendente</option>
                 </select>
-                <select>
+
+<select onChange={(e)=> handleFilterType(e)}>
+      <option value="All">Por tipo</option>
+      <option value="fighting">Peleador</option>
+      <option value="flying">Volador</option>
+      <option value="poison">Venenoso</option>
+      <option value="ground">Suelo</option>
+      <option value="rock">Piedra</option>
+      <option value="bug">Insecto</option>
+      <option value="ghost">Fantasma</option>
+      <option value="steel">Acero</option>
+      <option value="fire">Fuego</option>
+      <option value="water">Agua</option>
+      <option value="grass">Cesped</option>
+      <option value="electric">Electrico</option>
+      <option value="psychic">Psiquico</option>
+      <option value="dragon">Dragon</option>
+      <option value="dark">Oscuro</option>
+      <option value="fairy">Hada</option>
+      <option value="unknown">Desconocido</option>
+      <option value="shadow">Sombra</option>
+</select>
+                <select onChange={(e)=> handleFilterCreated(e)}>
                     <option value="All">Todos</option>
                     <option value="created">Creado</option>
                     <option value="api">Existente</option>
@@ -75,6 +109,8 @@ export default function Home() {
                     paginado={paginado}
                 />
             </div>
+            </div> 
+
             <div className={styles.segundoBack}>
                 <div className={styles.boxCard}>
                     {currentPokemons &&
@@ -107,27 +143,6 @@ export default function Home() {
 
 <select onChange={e=> handleFilterTypes(e)}>
 
-<select onChange={(e)=> handleFilterType(e)}>
-      <option value="All">Por tipo</option>
-      <option value="fighting">Peleador</option>
-      <option value="flying">Volador</option>
-      <option value="poison">Venenoso</option>
-      <option value="ground">Suelo</option>
-      <option value="rock">Piedra</option>
-      <option value="bug">Insecto</option>
-      <option value="ghost">Fantasma</option>
-      <option value="steel">Acero</option>
-      <option value="fire">Fuego</option>
-      <option value="water">Agua</option>
-      <option value="grass">Cesped</option>
-      <option value="electric">Electrico</option>
-      <option value="psychic">Psiquico</option>
-      <option value="dragon">Dragon</option>
-      <option value="dark">Oscuro</option>
-      <option value="fairy">Hada</option>
-      <option value="unknown">Desconocido</option>
-      <option value="shadow">Sombra</option>
-</select>
 
 
  

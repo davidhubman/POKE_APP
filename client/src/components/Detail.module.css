@@ -1,6 +1,6 @@
  
-progress::-moz-progress-bar { background: lightcoral; }
-progress::-webkit-progress-value { background: lightcoral; }
+progress::-moz-progress-bar { background:greenyellow; }
+progress::-webkit-progress-value { background:greenyellow; }
 
 progress {
     background: #f1f1f1;
@@ -8,7 +8,7 @@ progress {
     border-radius: 10px;
     align-items: center;
     position: relative;
-    color:lightcoral;
+    color: greenyellow;
     height: 10px;
     width: 250px;
   }
@@ -19,7 +19,7 @@ progress {
     box-shadow: 0 10px 40px -10px #fff;
     border-radius: 10px;
     background: #fff;
-    color:lightcoral;
+    color:greenyellow;
     height: 10px;
     width: 250px;
   }
@@ -30,21 +30,58 @@ progress {
 
   .detailBack{
     background-image: url('../components/imagenes/fondoDetail.jpg');
-  }
-
-  .allDetail{
-   background-color: tomato;
-  }
-  .nombre{
-    background-color: violet;
+    height: 100vh;
+    grid-template-columns: repeat(auto-fill,230px);
+    grid-gap: 40px;
+    gap:40px;
+    padding: 10vh;
+    justify-content: center;
   }
   .stats{
-    background-color: blue;
-  }
-  .tipo{
-    background-color: red;
-    width: 20vh;
+    background-color:transparent;
+    float:left;
+    width: 400px;
+    height: 55vh;
+    padding-bottom: 4vh;
+    backdrop-filter: blur(5px);
   }
   .imagen{
-    background-color: purple;
+       background-color:transparent;
+       width: 85%;
+    }
+  
+  .allDetail{
+    width:90%;
+    height: 80%;
+    margin-left: 5vh;
+    align-items: center;
+    text-align:center;
+    justify-content:center;
+    background-color:transparent;
+    box-shadow: 0 0 20px rgb(32, 15, 15), 0 0 20px grey;
+     }
+  .nombre{
+    background-color: rgb(221, 201, 20);
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    margin-top: calc(-48px - 5px);
+  
+    height: 10vh;
+    font-size:xx-large;
   }
+  .tipos{
+    background-color: red;
+    float:right;
+    width: 450px;
+    height: 31vh;
+  }
+
+  .buttonBox{
+    background-color: chocolate;
+    width: 25%;
+  }
+  /*
+  .buttonVolver{
+
+  }*/

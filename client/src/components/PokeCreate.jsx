@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import {postPokemon, getTypes} from "../actions/index"
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./PokeCreate.module.css"
+import imagenCreator from './imagenes/Default.gif';
 
 export default function PokeCreate(){
     const dispatch = useDispatch()
@@ -15,7 +16,7 @@ export default function PokeCreate(){
         name: "",
         height: "",
         weight: "",
-        image:"",
+        image:{imagenCreator},
         attack: "",
         defense: "",
         speed: "",
@@ -68,7 +69,10 @@ export default function PokeCreate(){
         <div className={styles.fondo}>
             <Link to ="/home"><button>RETURN</button></Link>
             <h1>CREA TU POKEMON</h1>
-            <form onSubmit={(e)=>{handleSubmit(e)}}>
+
+            <div className={styles.boxCreator}>
+              <form onSubmit={(e)=>{handleSubmit(e)}}>
+                <div className={styles.barras}>
               <div>
                   <label>Nombre:</label>
                   <input 
@@ -144,9 +148,10 @@ export default function PokeCreate(){
                   onChange = {(e)=>{handleChange(e)}}
                   />
               </div>
+              </div>
               <div>
                   <label>TIPO:</label>
-                  <div>
+                  <div className={styles.checkBox}>
                   <label><input type="checkbox"value="ice" name = "ice" onChange={(e)=>handleCheck(e)}/>Hielo</label>
                   <label><input type="checkbox" value="normal" name = "normal" onChange={(e)=>handleCheck(e)}/>Normal</label>
                   <label><input type="checkbox"value="fighting" name = "fighting" onChange={(e)=>handleCheck(e)}/>Peleador</label>
@@ -173,7 +178,7 @@ export default function PokeCreate(){
              <button type= "submit" >CREAR POKEMON</button>
 
             </form>
-            
-        </div>
+         </div>   
+    </div>
     )
 } 

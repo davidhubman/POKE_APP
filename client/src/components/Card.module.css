@@ -16,11 +16,11 @@
     
 }
 .tipo{
-    width: 25px; 
+    width: 30px; 
     padding:10px 0;
 }
 .imagenPoke{
-    width: 12vw;
+    width: 10vw;
     transition: 0.5s;
 }
 .imagenPoke:hover{

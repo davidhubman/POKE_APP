@@ -20,7 +20,7 @@ button:hover{
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment:fixed;
-
+ 
  height: 200vh;
 }
 
@@ -45,7 +45,10 @@ button:hover{
     padding: 5vh;
     margin: 2vw;
 }
-
+.boxButtons{
+    background-color: tomato;
+    text-align: center;
+}
 /*
     height: 100vh;
     background-size: cover;
