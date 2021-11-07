@@ -8,6 +8,7 @@
     height: 30vh;
     transition: 0.5s;
     border-radius: 20px;
+    color: whitesmoke;
 }
 
 .Card:hover{

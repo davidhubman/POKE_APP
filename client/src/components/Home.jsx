@@ -73,6 +73,7 @@ export default function Home() {
                 <select onChange={(e)=> handleSort(e)}>
                     <option value="asc">Ascendente</option>
                     <option value="desc">Descendente</option>
+                    <option value="attack">Por ataque</option>
                 </select>
 
 <select onChange={(e)=> handleFilterType(e)}>

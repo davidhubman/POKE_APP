@@ -94,6 +94,16 @@ function rootReducer(state = initialState, action) {
                           }
                           return 0
                       })
+                    : action.payload === 'attack'
+                    ? state.pokemons.sort(function (a, b) {
+                          if (a.attack > b.attack) {
+                              return -1
+                          }
+                          if (a.attack < b.attack) {
+                              return 1
+                          }
+                          return 0
+                      })
                     : state.pokemons.sort(function (a, b) {
                           if (a.name > b.name) {
                               return -1

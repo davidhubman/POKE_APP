@@ -1,5 +1,5 @@
 .fondo {
-        background-image: url('../components/imagenes/creator.jpg');
+        background-image: url('../components/imagenes/fondoCrea.jpg');
         background-position: cover;
         text-align: center;
         height: 110vh;
@@ -10,10 +10,12 @@
         background-color: transparent;
         padding: 1vh;
         margin: 10vh;
+        backdrop-filter: blur(5px);
+        color:white;
 }
 
 .checkBox{
-        background-color: tomato;
+        background-color: transparent;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -22,9 +24,10 @@
         height: 45vh;
         float: right;
         justify-content: space-between;
+        color:white;
 }
 .barras{
-        background-color: yellowgreen;
+        background-color: transparent;
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
@@ -33,4 +36,5 @@
         height: 50vh;
         float:left;
         justify-content: space-around;
+        color:white;
 }
