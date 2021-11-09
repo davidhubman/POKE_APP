@@ -61,7 +61,7 @@ progress {
     box-shadow: 0 0 20px rgb(32, 15, 15), 0 0 20px grey;
      }
   .nombre{
-    background-color: rgb(221, 201, 20);
+    
     justify-content: center;
     align-items: center;
     border-radius: 20px;
@@ -71,17 +71,17 @@ progress {
     font-size:xx-large;
   }
   .tipos{
-    background-color: red;
+    color: whitesmoke;
+    font-size: xx-large;
     float:right;
     width: 450px;
     height: 31vh;
   }
 
   .buttonBox{
-    background-color: chocolate;
+    
     width: 25%;
   }
   /*
   .buttonVolver{
-
   }*/
