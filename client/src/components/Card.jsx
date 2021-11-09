@@ -52,7 +52,7 @@ export default function Card({name, image, types, id}) {
         <div className={styles.Card}>
         <div>
            <h4>{name.toUpperCase()}</h4>
-           <img src={image || gifDefault}  className={styles.imagenPoke} alt='img not found' />
+           <img src={ image || gifDefault}  className={styles.imagenPoke} alt='img not found' />
            
            {/* de type a image */}
            <div>

@@ -16,7 +16,7 @@ export default function PokeCreate(){
         name: "",
         height: "",
         weight: "",
-        image:{imagenCreator},
+        image: {imagenCreator},
         attack: "",
         defense: "",
         speed: "",

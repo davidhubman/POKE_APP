@@ -11,9 +11,9 @@ import imagen from '../components/imagenes/pokedexFINAL.png'
 import styles from './Home.module.css'
 
 export default function Home() {
+    
     const dispatch = useDispatch()
-
-    const allPokemons = useSelector((state) => state.pokemons) // es como "MAP state to PROPS"
+    const allPokemons = useSelector((state) => state.pokemons) // es como "MAP state to PROPS" 
 
     //PAGINADO
     const [currentPage, setCurrentPage] = useState(1) //declaro estado local y paso pagina actual (la primera)
@@ -22,7 +22,7 @@ export default function Home() {
     const indexFirstPoke = indexLastPoke - pokemonsPerPage
     const currentPokemons = allPokemons.slice(indexFirstPoke, indexLastPoke)
     //ORDENADO
-    const [order, setOrder] = useState('')
+    const [order, setOrder] = useState('') 
 
     // aca hago el renderisado
     const paginado = (pageNumbers) => {
@@ -30,7 +30,7 @@ export default function Home() {
     }
     useEffect(() => {
         dispatch(getPokemons())
-    }, [])
+    },[])
 
     function handleClick(e) {
         e.preventDefault() //es para que no vuelvan a cargarse estados por culpa de useEffect
@@ -49,10 +49,13 @@ export default function Home() {
         dispatch(orderByName(e.target.value))
         setCurrentPage(1)
        setOrder(`Ordenado ${e.target.value}`)
+       //console.log(order)
     }
 
     return (
-        <div className={styles.background}>
+        <div> 
+        { allPokemons.length > 0 ? 
+           <div className={styles.background}>
             <div className={styles.boxButtons}>
             <Link to="/pokemon">
                 <button className={styles.button}>CREA TU POKEMON!</button>
@@ -136,7 +139,9 @@ export default function Home() {
                         })}
                 </div>
             </div>
-        </div>
+        </div> : <div>loading...</div>
+}
+    </div>
     )
 }
 

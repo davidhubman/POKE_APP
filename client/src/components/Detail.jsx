@@ -18,6 +18,7 @@ export default function Detail(props){
     const myPokemon = useSelector((state) => state.detail)
     //const name = myPokemon[0].name
     //const arrayTypes = myPokemon[0].types.split(",")
+    //const foto = myPokemon[0].image
     //const types = arrayTypes.forEach(function(element) { return  });)
     //  
     //<img src={require("./types/"+(x)+".gif").default } alt="joder"/>)
@@ -41,8 +42,9 @@ export default function Detail(props){
            <div><h3>Salud:</h3><progress className={styles.progressValue} max="100" value={myPokemon[0].health}>salud</progress></div>
            </div>
 
-           <div className={styles.imagen}><img src={myPokemon[0].id.length < 5 ? require("./gifs/"+(myPokemon[0].name)+".gif").default  : foto} alt="joder"/></div>
-
+           <div className={styles.imagen}> {  myPokemon[0].id  < 50 ?
+                 <img src={ require("./gifs/"+(myPokemon[0].name)+".gif").default  } alt="joder"/>
+               :  <img src={foto} alt="joder"/> } </div>
            <div className={styles.tipos}>
                <div>{myPokemon[0].types}</div>
            </div>
