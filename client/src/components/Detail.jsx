@@ -5,7 +5,7 @@ import { getDetail } from "../actions"
 import { useEffect } from "react"
 
 import styles from "./Detail.module.css"
-
+import foto from "./imagenes/Default.gif"
 
 export default function Detail(props){
     //console.log(props)
@@ -41,7 +41,7 @@ export default function Detail(props){
            <div><h3>Salud:</h3><progress className={styles.progressValue} max="100" value={myPokemon[0].health}>salud</progress></div>
            </div>
 
-           <div className={styles.imagen}><img src={require("./gifs/"+(myPokemon[0].name)+".gif").default || myPokemon[0].imagen} alt="joder"/></div>
+           <div className={styles.imagen}><img src={myPokemon[0].id.length < 5 ? require("./gifs/"+(myPokemon[0].name)+".gif").default  : foto} alt="joder"/></div>
 
            <div className={styles.tipos}>
                <div>{myPokemon[0].types}</div>
