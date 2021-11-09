@@ -5,7 +5,7 @@ import { getDetail } from "../actions"
 import { useEffect } from "react"
 
 import styles from "./Detail.module.css"
-//import Default from "./imagenes/Default.gif"
+
 
 export default function Detail(props){
     //console.log(props)
@@ -17,11 +17,11 @@ export default function Detail(props){
 
     const myPokemon = useSelector((state) => state.detail)
     //const name = myPokemon[0].name
-    const arrayTypes = [myPokemon[0]]
+    //const arrayTypes = myPokemon[0].types.split(",")
     //const types = arrayTypes.forEach(function(element) { return  });)
-    // {arrayTypeImages.map( (x) => <img src={require("./types/"+(x)+".gif").default } alt="joder"/>)}  
+    //  
     //<img src={require("./types/"+(x)+".gif").default } alt="joder"/>)
-    console.log(arrayTypes)
+    //console.log(arrayTypes[4])
 
     return(
         <div className={styles.detailBack}>
@@ -44,9 +44,8 @@ export default function Detail(props){
            <div className={styles.imagen}><img src={require("./gifs/"+(myPokemon[0].name)+".gif").default || myPokemon[0].imagen} alt="joder"/></div>
 
            <div className={styles.tipos}>
-           <div>{myPokemon[0].types}</div>
+               <div>{myPokemon[0].types}</div>
            </div>
-
 
            <div className={styles.buttonBox}>
            <Link classaName={styles.buttonVolver} to="/home"><button>VOLVER</button></Link>
@@ -58,7 +57,7 @@ export default function Detail(props){
 }
 
 /*
-
+{arrayTypes.map( (x) => <img src={require("./types/"+(x)+".gif").default || myPokemon[0].types } alt="joder"/>)} 
  <h3>Tipos:</h3>
            {myPokemon[0].types.map( ty => 
            <img src={require("./types/"+(ty)+".gif").default || ty } alt="joder" width="200px"/>)
