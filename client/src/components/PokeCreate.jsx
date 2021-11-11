@@ -21,7 +21,7 @@ export default function PokeCreate(){
         defense: "",
         speed: "",
         health: "",
-        type:'', 
+        type:[], 
     })
 
     function handleChange(e) {
@@ -33,12 +33,13 @@ export default function PokeCreate(){
 
     function handleCheck(e) {
         if (e.target.checked){ 
-            console.log(e.target.value)
+            console.log(e.target.checked)
 
-            setInput({
+                setInput({ 
                 ...input,
-                type: [...input.type, e.target.value]
+                type: [...input.type, e.target.value] 
             })
+            console.log(setInput)
         }
     }
     
